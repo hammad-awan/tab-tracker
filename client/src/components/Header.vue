@@ -8,7 +8,7 @@
       </router-link>
     </v-toolbar-title>
     <v-toolbar-items>
-      <v-btn flat dark>
+      <v-btn flat dark @click="$router.push({name: 'songs'})">
         Browse
       </v-btn>
     </v-toolbar-items>
@@ -45,8 +45,9 @@ export default {
   },
   methods: {
     async logout() {
-      this.$store.dispatch('setToken', null, this.$router)
-      this.$router.push('login')
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      this.$router.push({name: 'root'})
     }
   }
 }
