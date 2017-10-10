@@ -5,7 +5,7 @@
       <slot name="action"></slot>
     </v-toolbar>
     <div class="pl-4 pr-4 pt-2 pb-2">
-      <slot>No slot component defined</slot>
+      <slot></slot>
     </div>
   </div>
 </template>

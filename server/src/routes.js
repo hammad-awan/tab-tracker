@@ -9,4 +9,7 @@ module.exports = (app) => {
 
   app.get('/api/songs', songsController.index)
   app.post('/api/songs', songsController.create)
+
+  app.get('/api/songs/:id', songsController.get)
+  app.put('/api/songs/:id', songsController.save)
 }

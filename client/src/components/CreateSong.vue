@@ -62,7 +62,6 @@ export default {
           return
         }
 
-        console.log(this.song)
         await songsService.post(this.song)
         this.$router.push({ name: 'songs' })
       } catch (ex) {
