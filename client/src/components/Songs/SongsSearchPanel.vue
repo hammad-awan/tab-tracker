@@ -1,6 +1,6 @@
 <template>
   <panel title="Song Search">
-    <v-text-field id="search" label="Search by song title, artist, album, or genre" v-model="search" @change="onSearchChange"></v-text-field>
+    <v-text-field id="search" label="Search by song title, artist, album, or genre" v-model="search" @change="onSearchChange" @keyup.enter="onSearchChange"></v-text-field>
   </panel>
 </template>
 

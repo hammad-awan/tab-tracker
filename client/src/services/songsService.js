@@ -1,8 +1,12 @@
 import api from './api'
 
 export default {
-  index() {
-    return api().get('/songs')
+  index(search) {
+    return api().get('/songs', {
+      params: {
+        search: search
+      }
+    })
   },
   post(song) {
     return api().post('/songs', song)

@@ -7,7 +7,7 @@
             <v-text-field id="email" label="Email" v-model="email"></v-text-field>
             <v-text-field type="password" id="password" label="Password" v-model="password"></v-text-field>
             <v-btn class="cyan" @click="login" dark>Login</v-btn>
-            <div class="error" v-html="error"></div>
+            <div class="danger-alert" v-html="error"></div>
           </form>
         </div>
       </panel>
@@ -29,12 +29,13 @@ export default {
   methods: {
     async login() {
       try {
+        this.error = null
         const response = await authenticationService.login({
           email: this.email,
           password: this.password
         })
         this.$store.storeTokenAndUser(response.data)
-        this.error = null
+        this.$router.push({name: 'songs'})
       } catch (ex) {
         this.error = ex.response.data.error
       }

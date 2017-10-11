@@ -1,9 +1,9 @@
-const db = require('../models')
+const songsDao = require('../persistence/songsDao')
 
 module.exports = {
   async index(req, res) {
     try {
-      const songs = await db.Song.findAll({ limit: 10 })
+      const songs = await songsDao.search(req.query.search)
       res.send(songs)
     } catch (ex) {
       res.status(400).send({ error: `An error occurred attempting to retrieve all songs: ${ex.message}` })
@@ -11,7 +11,7 @@ module.exports = {
   },
   async get(req, res) {
     try {
-      const song = await db.Song.findById(req.params.id)
+      const song = await songsDao.find(req.params.id)
       res.send(song)
     } catch (ex) {
       res.status(400).send({ error: `An error occurred attempting to retrieve song with id ${req.params.id}: ${ex.message}` })
@@ -19,7 +19,7 @@ module.exports = {
   },
   async create(req, res) {
     try {
-      const song = await db.Song.create(req.body)
+      const song = await songsDao.create(req.body)
       res.send(song)
     } catch (ex) {
       res.status(400).send({ error: `An error occurred attempting to create a song: ${ex.message}` })
@@ -27,12 +27,8 @@ module.exports = {
   },
   async save(req, res) {
     try {
-      await db.Song.update(req.body,
-        {
-          where: {
-            id: req.params.id
-          }
-        })
+      const song = await songsDao.update(req.body)
+      res.send(song)
     } catch (ex) {
       res.status(400).send({ error: `An error occurred attempting to update a song: ${ex.message}` })
     }

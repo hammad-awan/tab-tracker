@@ -10,7 +10,5 @@ module.exports = (sequelize, DataTypes) => {
     tab: DataTypes.TEXT
   }
 
-  const Song = sequelize.define('Song', songSchema)
-
-  return Song
+  return sequelize.define('Song', songSchema)
 }

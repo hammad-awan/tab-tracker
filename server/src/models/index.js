@@ -12,6 +12,13 @@ fs.readdirSync(__dirname).filter((file) => file !== 'index.js').forEach((file) =
   db[model.name] = model
 })
 
+Object.keys(db).forEach(model => {
+  const associateKey = db[model].associate
+  if (typeof associateKey === 'function') {
+    db[model].associate(db)
+  }
+})
+
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
