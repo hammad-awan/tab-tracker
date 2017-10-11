@@ -6,7 +6,6 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 
 export default {
   props: ['id'],
@@ -15,7 +14,6 @@ export default {
     }
   },
   components: {
-    Panel
   }
 }
 </script>

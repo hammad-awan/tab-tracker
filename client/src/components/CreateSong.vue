@@ -28,7 +28,6 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 import songsService from '../services/songsService'
 
 export default {
@@ -49,7 +48,6 @@ export default {
     }
   },
   components: {
-    Panel
   },
   methods: {
     async create() {

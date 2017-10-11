@@ -16,7 +16,6 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
 import authenticationService from '../services/authenticationService'
 
 export default {
@@ -42,7 +41,6 @@ export default {
     }
   },
   components: {
-    Panel
   }
 }
 </script>
