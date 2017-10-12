@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import createdPersistedState from 'vuex-persistedstate'
 
 Vue.use(Vuex)
 
@@ -10,6 +11,7 @@ const Store = new Vuex.Store({
     user: null,
     isUserLoggedIn: false
   },
+  plugins: [createdPersistedState()],
   mutations: {
     setToken(state, token) {
       state.token = token

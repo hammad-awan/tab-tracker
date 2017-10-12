@@ -15,4 +15,6 @@ module.exports = (app) => {
   app.put('/api/songs/:id', songsController.save)
 
   app.get('/api/bookmarks', bookmarksController.index)
+  app.post('/api/bookmarks', bookmarksController.create)
+  app.delete('/api/bookmarks/:id', bookmarksController.delete)
 }

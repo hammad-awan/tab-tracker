@@ -31,7 +31,7 @@ import Tab from './Tab'
 export default {
   data() {
     return {
-      song: { id: 0 }
+      song: {}
     }
   },
   components: {

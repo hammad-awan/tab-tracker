@@ -12,7 +12,9 @@
           {{song.genre}}
         </div>
 
-        <v-btn class="cyan" dark :to="{name: 'song-edit', params: {id: song.id}}">Edit</v-btn>
+        <v-btn class="cyan" dark :to="{name: 'song-edit', params: {id: songId}}" v-show="songId > 0">Edit</v-btn>
+        <v-btn class="cyan" dark @click="setBookmark" v-if="isUserLoggedIn && !bookmark">Bookmark</v-btn>
+        <v-btn class="cyan" dark @click="unbookmark" v-if="isUserLoggedIn && bookmark">Unbookmark</v-btn>
 
       </v-flex>
       <v-flex xs6>
@@ -24,16 +26,51 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+import bookmarksService from '@/services/bookmarksService'
 
 export default {
   props: ['song'],
   data() {
     return {
+      bookmark: null
     }
   },
   components: {
   },
   methods: {
+    async setBookmark() {
+      try {
+        this.bookmark = (await bookmarksService.add(this.song.id, this.user.id)).data
+      } catch (ex) {
+        console.log(ex.message)
+      }
+    },
+    async unbookmark() {
+      try {
+        await bookmarksService.remove(this.bookmark.id)
+        this.bookmark = null
+      } catch (ex) {
+        console.log(ex.message)
+      }
+    }
+  },
+  computed: {
+    ...mapState(['isUserLoggedIn', 'user']),
+    songId() {
+      return this.song != null && this.song.id != null ? this.song.id : 0
+    }
+  },
+  watch: {
+    async song() {
+      try {
+        if (this.isUserLoggedIn) {
+          this.bookmark = (await bookmarksService.index(this.song.id, this.user.id)).data
+        }
+      } catch (ex) {
+        console.log(ex.message)
+      }
+    }
   }
 }
 </script>
