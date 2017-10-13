@@ -1,4 +1,5 @@
 const db = require('../models')
+const _ = require('lodash')
 
 module.exports = {
   async create(bookmark) {
@@ -7,13 +8,19 @@ module.exports = {
       UserId: bookmark.userId
     })
   },
-  get(songId, userId) {
-    return db.Bookmark.findOne({
-      where: {
-        SongId: songId,
-        UserId: userId
+  get(userId, songId) {
+    let whereClause = { UserId: userId }
+    if (songId) {
+      whereClause.SongId = songId
+    }
+    return db.Bookmark.findAll({
+      where: whereClause,
+      include: {
+        model: db.Song
       }
     })
+      .map(bookmark => bookmark.toJSON())
+      .map(bookmark => _.extend({}, bookmark, bookmark.Song))
   },
   async delete(id) {
     const bookmark = await db.Bookmark.findById(id)

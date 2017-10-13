@@ -60,7 +60,7 @@ export default {
           return
         }
 
-        await songsService.post(this.song)
+        await songsService.create(this.song)
         this.$router.push({ name: 'songs' })
       } catch (ex) {
         console.log(`Error creating the song: ${ex.message}.`)

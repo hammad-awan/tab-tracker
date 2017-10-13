@@ -3,19 +3,19 @@ const bookmarksDao = require('../persistence/bookmarksDao')
 module.exports = {
   async index(req, res) {
     try {
-      const bookmark = await bookmarksDao.get(req.query.songId, req.query.userId)
-      res.send(bookmark)
+      const bookmarks = await bookmarksDao.get(req.query.userId, req.query.songId)
+      res.send(bookmarks)
     } catch (ex) {
-      res.status(400).send({ error: `An error occurred attempting to retrieve a bookmark: ${ex.message}` })
+      res.status(400).send({ error: `An error occurred attempting to retrieve bookmark(s): ${ex.message}` })
     }
   },
   async create(req, res) {
     try {
-      let bookmark = await bookmarksDao.get(req.body.songId, req.body.userId)
-      if (bookmark) {
+      const bookmarks = await bookmarksDao.get(req.body.userId, req.body.songId)
+      if (bookmarks.length > 0) {
         return res.status(400).send({ error: 'The bookmark for this song already exists for the user' })
       }
-      bookmark = await bookmarksDao.create(req.body)
+      const bookmark = await bookmarksDao.create(req.body)
       res.send(bookmark)
     } catch (ex) {
       res.status(400).send({ error: `An error occurred attempting to create a bookmark: ${ex.message}` })

@@ -22,11 +22,13 @@
 </template>
 
 <script>
-import SongsService from '@/services/songsService'
+import songsService from '@/services/songsService'
+import songHistoryService from '@/services/songHistoryService'
 import SongMetadata from './SongMetadata'
 import YouTube from './YouTube'
 import Lyrics from './Lyrics'
 import Tab from './Tab'
+import { mapState } from 'vuex'
 
 export default {
   data() {
@@ -40,10 +42,16 @@ export default {
     Lyrics,
     Tab
   },
+  computed: {
+    ...mapState(['isUserLoggedIn', 'user'])
+  },
   async mounted() {
-    const songId = this.$store.state.route.params.id
+    const songId = this.$route.params.id
     try {
-      this.song = (await SongsService.get(songId)).data
+      this.song = await songsService.get(songId)
+      if (this.isUserLoggedIn) {
+        await songHistoryService.create({ songId: songId, userId: this.user.id })
+      }
     } catch (ex) {
       console.log(`An error occurred attempting to retrieve the song with id ${songId}: ${ex.message}`)
     }

@@ -8,13 +8,13 @@ function createBookmarkParams(songId, userId) {
 }
 
 export default {
-  index(songId, userId) {
-    return api().get('/bookmarks', { params: createBookmarkParams(songId, userId) })
+  async index(userId, songId) {
+    return (await api().get('/bookmarks', { params: createBookmarkParams(songId, userId) })).data
   },
-  add(songId, userId) {
-    return api().post('/bookmarks', createBookmarkParams(songId, userId))
+  async add(userId, songId) {
+    return (await api().post('/bookmarks', createBookmarkParams(songId, userId))).data
   },
-  remove(bookmarkId) {
-    return api().delete(`/bookmarks/${bookmarkId}`)
+  async remove(bookmarkId) {
+    return (await api().delete(`/bookmarks/${bookmarkId}`)).data
   }
 }

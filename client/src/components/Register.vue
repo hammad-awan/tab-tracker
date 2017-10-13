@@ -29,12 +29,12 @@ export default {
   methods: {
     async register() {
       try {
-        const response = await authenticationService.register({
+        const data = await authenticationService.register({
           email: this.email,
           password: this.password
         })
-        this.$store.storeTokenAndUser(response.data)
-        this.$router.push({name: 'songs'})
+        this.$store.storeTokenAndUser(data)
+        this.$router.push({ name: 'songs' })
       } catch (ex) {
         this.error = ex.response.data.error
       }
@@ -47,4 +47,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 </style>

@@ -40,9 +40,9 @@ export default {
   components: {
   },
   async mounted() {
-    const songId = this.$store.state.route.params.id
+    const songId = this.$route.params.id
     try {
-      this.song = (await songsService.get(songId)).data
+      this.song = await songsService.get(songId)
     } catch (ex) {
       console.log(`An error occurred attempting to retrieve the song with id ${songId}: ${ex.message}`)
     }
@@ -58,8 +58,8 @@ export default {
           return
         }
 
-        const songId = this.$store.state.route.params.id
-        await songsService.put(this.song)
+        const songId = this.$route.params.id
+        await songsService.update(this.song)
         this.$router.push(
           {
             name: 'song',

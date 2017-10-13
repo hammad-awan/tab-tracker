@@ -30,12 +30,12 @@ export default {
     async login() {
       try {
         this.error = null
-        const response = await authenticationService.login({
+        const data = await authenticationService.login({
           email: this.email,
           password: this.password
         })
-        this.$store.storeTokenAndUser(response.data)
-        this.$router.push({name: 'songs'})
+        this.$store.storeTokenAndUser(data)
+        this.$router.push({ name: 'songs' })
       } catch (ex) {
         this.error = ex.response.data.error
       }
@@ -48,4 +48,5 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+
 </style>

@@ -1,10 +1,10 @@
 import api from './api'
 
 export default {
-  register(credentials) {
-    return api().post('/register', credentials)
+  async register(credentials) {
+    return (await api().post('/register', credentials)).data
   },
-  login(credentials) {
-    return api().post('/login', credentials)
+  async login(credentials) {
+    return (await api().post('/login', credentials)).data
   }
 }

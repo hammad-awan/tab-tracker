@@ -1,20 +1,20 @@
 import api from './api'
 
 export default {
-  index(search) {
-    return api().get('/songs', {
+  async index(search) {
+    return (await api().get('/songs', {
       params: {
         search: search
       }
-    })
+    })).data
   },
-  post(song) {
-    return api().post('/songs', song)
+  async create(song) {
+    return (await api().post('/songs', song)).data
   },
-  get(id) {
-    return api().get(`/songs/${id}`)
+  async get(id) {
+    return (await api().get(`/songs/${id}`)).data
   },
-  put(song) {
-    return api().put(`/songs/${song.id}`, song)
+  async update(song) {
+    return (await api().put(`/songs/${song.id}`, song)).data
   }
 }

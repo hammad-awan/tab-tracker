@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import SongsService from '@/services/songsService'
+import songsService from '@/services/songsService'
 
 export default {
   data() {
@@ -45,7 +45,11 @@ export default {
     '$route.query.search': {
       immediate: true,
       async handler(value) {
-        this.songs = (await SongsService.index(value)).data
+        try {
+          this.songs = await songsService.index(value)
+        } catch (ex) {
+          console.log(ex)
+        }
       }
     }
   }
