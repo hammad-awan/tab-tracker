@@ -12,6 +12,7 @@
 <script>
 import { mapState } from 'vuex'
 import bookmarksService from '@/services/bookmarksService'
+import _ from 'lodash'
 
 export default {
   data() {
@@ -37,7 +38,8 @@ export default {
   async mounted() {
     try {
       if (this.isUserLoggedIn) {
-        this.bookmarks = (await bookmarksService.index(this.user.id))
+        const bookmarks = await bookmarksService.index()
+        this.bookmarks = bookmarks.map(x => _.extend({}, x.Song))
       }
     } catch (ex) {
       console.log(ex.message)

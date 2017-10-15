@@ -5,6 +5,7 @@ const morgan = require('morgan')
 const db = require('./models')
 const config = require('./config/config')
 const routes = require('./routes')
+const passport = require('passport')
 
 const app = express()
 
@@ -13,6 +14,8 @@ app.use(bodyParser.json())
 app.use(cors())
 
 routes(app)
+
+require('./passport')(passport)
 
 db.sequelize.sync().then(() => {
   app.listen(config.port, () => {

@@ -41,7 +41,7 @@ export default {
   methods: {
     async setBookmark() {
       try {
-        this.bookmark = (await bookmarksService.add(this.user.id, this.song.id))
+        this.bookmark = (await bookmarksService.add(this.song.id))
       } catch (ex) {
         console.log(ex.message)
       }
@@ -65,7 +65,7 @@ export default {
     async song() {
       try {
         if (this.isUserLoggedIn) {
-          const bookmarks = (await bookmarksService.index(this.user.id, this.song.id))
+          const bookmarks = (await bookmarksService.index(this.song.id))
           if (bookmarks.length > 0) {
             this.bookmark = bookmarks[0]
           }

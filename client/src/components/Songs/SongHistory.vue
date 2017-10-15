@@ -12,6 +12,7 @@
 <script>
 import { mapState } from 'vuex'
 import songHistoryService from '@/services/songHistoryService'
+import _ from 'lodash'
 
 export default {
   data() {
@@ -37,7 +38,8 @@ export default {
   async mounted() {
     try {
       if (this.isUserLoggedIn) {
-        this.songHistory = (await songHistoryService.index(this.user.id))
+        const songHistory = await songHistoryService.index()
+        this.songHistory = songHistory.map(x => _.extend({}, x.Song))
       }
     } catch (ex) {
       console.log(ex.message)

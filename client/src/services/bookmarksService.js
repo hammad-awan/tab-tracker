@@ -1,18 +1,17 @@
 import api from './api'
 
-function createBookmarkParams(songId, userId) {
+function createBookmarkParams(songId) {
   return {
-    songId: songId,
-    userId: userId
+    songId: songId
   }
 }
 
 export default {
-  async index(userId, songId) {
-    return (await api().get('/bookmarks', { params: createBookmarkParams(songId, userId) })).data
+  async index(songId) {
+    return (await api().get('/bookmarks', { params: createBookmarkParams(songId) })).data
   },
-  async add(userId, songId) {
-    return (await api().post('/bookmarks', createBookmarkParams(songId, userId))).data
+  async add(songId) {
+    return (await api().post('/bookmarks', createBookmarkParams(songId))).data
   },
   async remove(bookmarkId) {
     return (await api().delete(`/bookmarks/${bookmarkId}`)).data

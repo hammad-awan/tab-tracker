@@ -1,11 +1,10 @@
 const db = require('../models')
-const _ = require('lodash')
 
 module.exports = {
-  async create(songHistory) {
+  async create(userId, songId) {
     return db.SongHistory.create({
-      SongId: songHistory.songId,
-      UserId: songHistory.userId
+      UserId: userId,
+      SongId: songId
     })
   },
   get(userId, songId) {
@@ -19,7 +18,5 @@ module.exports = {
         model: db.Song
       }
     })
-      .map(songHistory => songHistory.toJSON())
-      .map(songHistory => _.extend({}, songHistory, songHistory.Song))
   }
 }

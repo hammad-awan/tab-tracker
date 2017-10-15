@@ -50,7 +50,7 @@ export default {
     try {
       this.song = await songsService.get(songId)
       if (this.isUserLoggedIn) {
-        await songHistoryService.create({ songId: songId, userId: this.user.id })
+        await songHistoryService.create(songId)
       }
     } catch (ex) {
       console.log(`An error occurred attempting to retrieve the song with id ${songId}: ${ex.message}`)
